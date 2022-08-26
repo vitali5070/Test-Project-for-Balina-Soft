@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     public let urlGetString: String = "https://junior.balinasoft.com/api/v2/photo/type"
-    public var model: GetModel?
     public var models: [GetModel] = []
     public let downloadManager: DownloadManager = DownloadManager()
     public let uploadManager: UploadManager = UploadManager()
@@ -57,9 +56,7 @@ class MainViewController: UIViewController {
                 do {
                     guard let data = data else { return }
                     let getModel = try JSONDecoder().decode(GetModel.self, from: data)
-                    self?.model = getModel
-                    guard let model = self?.model else { return }
-                    self?.models.append(model)
+                    self?.models.append(getModel)
                     DispatchQueue.main.async {
                         self?.activityIndicator.stopAnimating()
                         self?.tableView.reloadData()
