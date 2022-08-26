@@ -72,7 +72,9 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         guard let picker = picker as? PhotoViewController else { return }
         picker.dismiss(animated: true)
         guard let image = info[PhotoViewController.InfoKey.originalImage] as? UIImage else { return }
-        self.uploadManager.uploadPhoto(withImage: image, indexPath: picker.indexPath, developerName: self.getDeveloperName())
+        guard let index = picker.indexPath?.row else { return }
+        let postModel: PostModel = PostModel(typeId: String(index), name: self.getDeveloperName(), photo: image)
+        self.uploadManager.uploadPhoto(withPostModelData: postModel)
     }
 }
 

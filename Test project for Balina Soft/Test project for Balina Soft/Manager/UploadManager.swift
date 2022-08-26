@@ -37,15 +37,6 @@ class UploadManager: NSObject {
         dataTask.resume()
     }
     
-    public func uploadPhoto(withImage image: UIImage, indexPath: IndexPath?, developerName: String) {
-        guard let index = indexPath?.row else { return }
-        let id: String = String(index)
-        let postModel: PostModel = PostModel(typeId: id, name: developerName, photo: image)
-        let uploadManager = UploadManager()
-        uploadManager.uploadPhoto(withPostModelData: postModel)
-    }
-    
-    
     func createDataBody(withParameters parameters: [String: String]?, photo: PhotoModel, boundary: String) -> Data {
         let lineBreak: String = "\r\n"
         var body = Data()
