@@ -9,7 +9,7 @@ import UIKit
 
 class PhotoViewController: UIImagePickerController {
     
-    public var indexPath: IndexPath?
+    public var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()

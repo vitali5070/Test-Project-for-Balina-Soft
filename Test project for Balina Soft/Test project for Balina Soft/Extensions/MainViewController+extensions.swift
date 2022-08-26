@@ -48,8 +48,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        guard let index = self.models[indexPath.section].content?[indexPath.row].id else { return }
         let picker = PhotoViewController()
-        picker.indexPath = indexPath
+        picker.index = Int(index)
         picker.sourceType = .camera
         picker.delegate = self
         self.present(picker, animated: true)
@@ -72,7 +73,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         guard let picker = picker as? PhotoViewController else { return }
         picker.dismiss(animated: true)
         guard let image = info[PhotoViewController.InfoKey.originalImage] as? UIImage else { return }
-        guard let index = picker.indexPath?.row else { return }
+        guard let index = picker.index else { return }
         let postModel: PostModel = PostModel(typeId: String(index), name: self.getDeveloperName(), photo: image)
         self.uploadManager.uploadPhoto(withPostModelData: postModel)
     }
